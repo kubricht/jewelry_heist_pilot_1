@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+  <title>Document</title>
+</head>
+<body class="bg-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+      
+          <!-- INSTRUCTIONS PAGE 1: INTRODUCTION -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-1">
+            <h4 class="card-title display-5 pb-3" display="none">Jewelry Heist</h4>
+            <h5 class="card-text">Imagine that you are a thief preparing for a heist along with some fellow team members. Your objective is to sneak into a museum and steal a valuable piece of jewelry that is stored inside of a locked box.</h5>
+            <br>
+            <table style="width:80%" align="center">
+              <center>
+              <tr>
+                <th><img src="img/thief.png" style="height:150px"></th>
+                <th><img src="img/museum.png" style="height:150px"></th>
+                <th><img src="img/lockbox.png" style="height:150px"></th>
+              </tr>
+              </center>
+            </table>
+            </center>
+            <br>
+            <h5 class="card-text">To prepare for the heist, the engineer on your team has created a replica of the locked box, as well as the unlocking mechanism used to open it. The purpose of the replica is to provide a tool for you (the thief) to practice on.</h5>
+            <br>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-1">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 2: ON VS. OFF -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-2">
+              <h5 class="card-text">To unlock the box, a user must interact with a locking mechanism, which consists of three available buttons that can either be <b>on</b> (pressed) or <b>off</b> (not pressed).</h5>
+              <br>
+              <div class="container">
+                <img style="width:650px" src="img/box_locked.png">
+                <img style="position:absolute; left:110px; top:175px; width:75px" id="instr-2-btn-1" src="img/btn_gray_off.png">
+                <img style="position:absolute; left:192px; top:175px; width:75px" id="instr-2-btn-2" src="img/btn_gray_off.png">
+                <img style="position:absolute; left:275px; top:175px; width:75px" id="instr-2-btn-3" src="img/btn_gray_off.png">
+                <h5 class="card-text" style="position:absolute; left:117px; top:212px; display:none" id="instr-2-off-1">OFF</h5>
+                <h5 class="card-text" style="position:absolute; left:200px; top:212px; display:none" id="instr-2-off-2">OFF</h5>
+                <h5 class="card-text" style="position:absolute; left:283px; top:212px; display:none" id="instr-2-off-3">OFF</h5>
+                <h5 class="card-text" style="position:absolute; left:132px; top:200px; display:none" id="instr-2-on-1">ON</h5>
+                <h5 class="card-text" style="position:absolute; left:215px; top:200px; display:none" id="instr-2-on-2">ON</h5>
+                <h5 class="card-text" style="position:absolute; left:298px; top:200px; display:none" id="instr-2-on-3">ON</h5>
+                <img style="position:absolute; left:25px; top:195px; width:150px" id="instr-2-pointer-1" src="img/pointer.png">
+                <img style="position:absolute; left:109px; top:195px; width:150px" id="instr-2-pointer-2" src="img/pointer.png">
+                <img style="position:absolute; left:193px; top:195px; width:150px" id="instr-2-pointer-3" src="img/pointer.png">
+              </div>
+              <br>
+              <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+              <br>
+              <div class="form-group">
+                <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-2">
+              </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 3: ACTIVE VS. INACTIVE -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-3">
+            <h5 class="card-text">Occasionally a button can also be inactive, which means it cannot currently be pressed.</h5> 
+            <h5 class="card-text">To signal the current state of each button, two colors are used: <span style="color:green">green</span> (active) and <span style="color:red">red</span> (inactive).</h5>
+            <br>
+            <div class="container">
+              <img style="width:650px" src="img/box_locked.png">
+              <img style="position:absolute; left:110px; top:235px; width:75px" id="instr-3-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:235px; width:75px" id="instr-3-btn-2" src="img/btn_red_off.png">
+              <img style="position:absolute; left:275px; top:235px; width:75px" id="instr-3-btn-3" src="img/btn_red_off.png">
+              <h6 class="card-text" style="position:absolute; left:120px; top:320px; display:block; color:green">ACTIVE</h5>
+              <h6 class="card-text" style="position:absolute; left:192px; top:320px; display:block; color:red">INACTIVE</h5>
+              <h6 class="card-text" style="position:absolute; left:275px; top:320px; display:block; color:red">INACTIVE</h5>
+              <img style="position:absolute; left:25px; top:255px; width:150px" id="instr-3-pointer-1" src="img/pointer.png">
+              <img style="position:absolute; left:109px; top:255px; width:150px" id="instr-3-pointer-2" src="img/pointer.png">
+              <img style="position:absolute; left:193px; top:255px; width:150px" id="instr-3-pointer-3" src="img/pointer.png">
+            </div>
+            <br>
+            <h5 class="card-text">Remember: Active buttons can be pressed, but inactive buttons cannot be pressed.</h5>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-3">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 4: COLOR CHANGE -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-4">
+            <h5 class="card-text">When an active button is pressed, it might activate other inactive buttons, which is reflected in their color.</h5>
+            <div class="container">
+              <img style="width:650px" src="img/box_locked.png">
+              <img style="position:absolute; left:110px; top:155px; width:75px" id="instr-4-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:155px; width:75px" id="instr-4-btn-2" src="img/btn_red_off.png">
+              <img style="position:absolute; left:275px; top:155px; width:75px" id="instr-4-btn-3" src="img/btn_red_off.png">
+              <h6 class="card-text" style="position:absolute; left:120px; top:240px; display:block; color:green" id="instr-4-active-1">ACTIVE</h6>
+              <h6 class="card-text" style="position:absolute; left:200px; top:240px; display:none; color:green" id="instr-4-active-2">ACTIVE</h6>
+              <h6 class="card-text" style="position:absolute; left:195px; top:240px; display:block; color:red" id="instr-4-inactive-2">INACTIVE</h6>
+              <img style="position:absolute; left:25px; top:180px; width:150px" id="instr-4-pointer-1" src="img/pointer.png">
+            </div>
+            <br>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-4">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 5: COMBINATION -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-5">
+            <h5 class="card-text">The buttons need to be pressed in a certain order to unlock the box. The order of button presses can be thought of as the lock's <b>combination</b>.</h5>
+            <div class="container" align="middle">
+              <img style="width:650px" id="instr-5-box-locked" src="img/box_locked.png">
+              <img style="width:650px" id="instr-5-box-unlocked" src="img/box_unlocked.png">
+              <img style="position:absolute; left:110px; top:155px; width:75px" id="instr-5-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:155px; width:75px" id="instr-5-btn-2" src="img/btn_green_off.png">
+              <img style="position:absolute; left:275px; top:155px; width:75px" id="instr-5-btn-3" src="img/btn_green_off.png">
+              <img style="position:absolute; left:25px; top:180px; width:150px" id="instr-5-pointer-1" src="img/pointer.png">
+              <img style="position:absolute; left:105px; top:180px; width:150px" id="instr-5-pointer-2" src="img/pointer.png">
+              <img style="position:absolute; left:185px; top:180px; width:150px" id="instr-5-pointer-3" src="img/pointer.png">
+            </div>
+            <br>
+            <h5 class="card-text">The symbol on the box indicates whether it is locked or unlocked.</h5>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-5">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 6: MULTIPLE COMBINATIONS -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-6">
+            <h5 class="card-text">There are <b>multiple combinations</b> which can be used to unlock the box.</h5>
+            <div class="container" align="middle">
+              <img align="middle" style="width:650px; display:none" id="instr-6-box-locked" src="img/box_locked.png">
+              <img align="middle" style="width:650px" id="instr-6-box-unlocked" src="img/box_unlocked.png">
+              <img style="position:absolute; left:110px; top:130px; width:75px" id="instr-6-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:130px; width:75px" id="instr-6-btn-2" src="img/btn_green_off.png">
+              <img style="position:absolute; left:275px; top:130px; width:75px" id="instr-6-btn-3" src="img/btn_green_off.png">
+              <img style="position:absolute; left:25px; top:155px; width:150px" id="instr-6-pointer-1" src="img/pointer.png">
+              <img style="position:absolute; left:105px; top:155px; width:150px" id="instr-6-pointer-2" src="img/pointer.png">
+              <img style="position:absolute; left:185px; top:155px; width:150px" id="instr-6-pointer-3" src="img/pointer.png">
+            </div>
+            <br>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-6">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 7: THREE ACTIONS -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-7">
+            <h5 class="card-text">Users attempting to unlock the box may perform three actions to both unlock <b>and</b> open the box.</h5>
+            <h5 class="card-text">In other words, <b>two actions</b> must be used to <b>unlock</b> the box, and <b>one action</b> must be used to <b>open</b> the box.</h5>
+            <div class="container" align="middle">
+              <img align="middle" style="width:650px; display:none" id="instr-7-box-locked" src="img/box_locked.png">
+              <img align="middle" style="width:650px; display:none" id="instr-7-box-opened" src="img/box_open.png">
+              <img align="middle" style="width:650px" id="instr-7-box-unlocked" src="img/box_unlocked.png">
+              <img style="position:absolute; left:110px; top:210px; width:75px" id="instr-7-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:210px; width:75px" id="instr-7-btn-2" src="img/btn_green_off.png">
+              <img style="position:absolute; left:275px; top:210px; width:75px" id="instr-7-btn-3" src="img/btn_green_off.png">
+              <img style="position:absolute; left:25px; top:235px; width:150px; display:none" id="instr-7-pointer-p1-a1" src="img/pointer_a1.png">
+              <img style="position:absolute; left:105px; top:235px; width:150px; display:none" id="instr-7-pointer-p2-a2" src="img/pointer_a2.png">
+              <img style="position:absolute; left:400px; top:340px; width:150px; display:none" id="instr-7-pointer-pb-a3" src="img/pointer_a3.png">
+            </div>
+            <br>
+            <h5 class="card-text"><b>Remember:</b> Three actions define a single attempt.</h5>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-7">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 8: RESET AFTER THREE ACTIONS -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-8">
+            <h5 class="card-text">If the replica box is <b>not opened</b> after the <b>third</b> action, <b>the lock resets</b> and the user must make another attempt to unlock the box.</h5>
+            <div class="container" align="middle">
+              <img align="middle" style="width:650px" id="instr-8-box-locked" src="img/box_locked.png">
+              <img align="middle" style="width:650px; display: none" id="instr-8-box-unlocked" src="img/box_unlocked.png">
+              <img style="position:absolute; left:110px; top:155px; width:75px" id="instr-8-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:155px; width:75px" id="instr-8-btn-2" src="img/btn_green_off.png">
+              <img style="position:absolute; left:275px; top:155px; width:75px" id="instr-8-btn-3" src="img/btn_green_off.png">
+              <img style="position:absolute; left:25px; top:175px; width:150px" id="instr-8-pointer-1" src="img/pointer_a1.png">
+              <img style="position:absolute; left:105px; top:175px; width:150px" id="instr-8-pointer-2" src="img/pointer_a2.png">
+              <img style="position:absolute; left:185px; top:175px; width:150px" id="instr-8-pointer-3" src="img/pointer_a3.png">
+              <h4 class="card-text" style="position:absolute; left:165px; top:320px; display:block; color:white" id="instr-8-attempt">ATTEMPT #1</h4>
+            </div>
+            <br>
+            <h5 class="card-text">An attempt is only successful if the box is <b>opened</b> after the third action. If the box is <b>unlocked</b> (but not opened) after the third action, the attempt has failed.</h5>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-8">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 9: FAULTY LOCK -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-9">
+            <h5 class="card-text">Unfortunately, the engineer on your team (who designed the replica) failed several classes in college. Therefore, the replica of the box and locking mechanism do not always operate how they are supposed to.</h5>
+            <h5 class="card-text">Since the replica is faulty (because of bad engineering), even the correct button combinations will sometimes fail to unlock the box during an attempt.</h5>
+            <div class="container" align="middle">
+              <img align="middle" style="width:650px" id="instr-9-box" src="img/box_locked.png">
+              <img style="position:absolute; left:110px; top:235px; width:75px" id="instr-9-btn-1" src="img/btn_green_off.png">
+              <img style="position:absolute; left:192px; top:235px; width:75px" id="instr-9-btn-2" src="img/btn_green_off.png">
+              <img style="position:absolute; left:275px; top:235px; width:75px" id="instr-9-btn-3" src="img/btn_green_off.png">
+              <img style="position:absolute; left:25px; top:255px; width:150px" id="instr-9-pointer-1" src="">
+              <img style="position:absolute; left:105px; top:255px; width:150px" id="instr-9-pointer-2" src="">
+              <img style="position:absolute; left:185px; top:255px; width:150px" id="instr-9-pointer-3" src="">
+              <img style="position:absolute; left:400px; top:365px; width:150px" id="instr-9-pointer-box" src="">
+              <h4 class="card-text" style="position:absolute; left:165px; top:400px; display:block; color:white" id="instr-9-attempt"></h4>
+            </div>
+            <br>
+            <h5 class="card-text">In addition, incorrect combinations will sometimes unlock the box. Thus, to figure out the locking mechanism, it is necessary to try out different combinations several times.</h5>
+            <h5 class="card-text">Press 'Next' to proceed to the next page of instructions.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-9">
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS PAGE 10: YOUR JOB -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" id="instructions-10">
+            <h5 class="card-text">As the heist team's thief, your job is to:</h5>
+            <br>
+            <h5>
+            <ol>
+              <li><h5>Watch another member of your team attempt to unlock the box by pressing on the buttons in different orders.</h5></li>
+              <li>Try to figure out which combinations should be used to unlock the box during the real heist.</li>
+            </ol>
+            </h5>
+            <h5 class="card-text">You will watch as your team member attempts to unlock the replica box 20 times.</h5>
+            <br>
+            <h5>Afterwards, you will answer questions about the locking mechanism.</h5>
+            <br>
+            <h5 class="card-text">If you have any questions about your task, please notify the experimenter now. Otherwise, press 'Next' to proceed to the experiment.</h5>
+            <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-10">
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+  
+</body>
+</html>
