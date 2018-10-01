@@ -1,3 +1,5 @@
+// Common-Cause Condition
+
 // Initialize card number Var
 var cardNum = 1;
 // Initialize start Vars for animation
