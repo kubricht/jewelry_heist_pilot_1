@@ -8,6 +8,9 @@
   <!-- Bootstrap CSS-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
+  <!-- Math Object -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.1.2/math.js"></script>
+
   <title>Document</title>
 </head>
 <body class="bg-dark">
@@ -244,6 +247,39 @@
             <br>
             <h5 class="card-text">If you have any questions about your task, please notify the experimenter now. Otherwise, press 'Next' to proceed to the experiment.</h5>
             <br>
+            <div class="form-group">
+              <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-10">
+            </div>
+          </div>
+
+          <!-- Task PAGE 11: UNLOCKING ATTEMPTS -->
+          <div class="card card-body text-center mt-5" style="width: 800px; display:block" align="middle" id="task-11">
+            <h5 class="card-text">Watch below as a user attempts to unlock and open the box...</h5>
+            <br>
+            <div class="container" align="middle">
+              <img align="middle" style="width:650px" id="task-11-box" src="img/box_locked.png">
+              <img style="position:absolute; left:110px; top:155px; width:75px" id="task-11-btn-1" src="">
+              <img style="position:absolute; left:192px; top:155px; width:75px" id="task-11-btn-2" src="">
+              <img style="position:absolute; left:275px; top:155px; width:75px" id="task-11-btn-3" src="">
+              <img style="position:absolute; left:110px; top:235px; width:75px" id="task-11-btn-4" src="">
+              <img style="position:absolute; left:192px; top:235px; width:75px" id="task-11-btn-5" src="">
+              <img style="position:absolute; left:275px; top:235px; width:75px" id="task-11-btn-6" src="">
+              <img style="position:absolute; left:110px; top:315px; width:75px" id="task-11-btn-7" src="">
+              <img style="position:absolute; left:192px; top:315px; width:75px" id="task-11-btn-8" src="">
+              <img style="position:absolute; left:275px; top:315px; width:75px" id="task-11-btn-9" src="">
+              <img style="position:absolute; left:25px; top:175px; width:150px" id="task-11-pointer-1" src="">
+              <img style="position:absolute; left:107px; top:175px; width:150px" id="task-11-pointer-2" src="">
+              <img style="position:absolute; left:190px; top:175px; width:150px" id="task-11-pointer-3" src="">
+              <img style="position:absolute; left:25px; top:255px; width:150px" id="task-11-pointer-4" src="">
+              <img style="position:absolute; left:107px; top:255px; width:150px" id="task-11-pointer-5" src="">
+              <img style="position:absolute; left:190px; top:255px; width:150px" id="task-11-pointer-6" src="">
+              <img style="position:absolute; left:25px; top:335px; width:150px" id="task-11-pointer-7" src="">
+              <img style="position:absolute; left:107px; top:335px; width:150px" id="task-11-pointer-8" src="">
+              <img style="position:absolute; left:190px; top:335px; width:150px" id="task-11-pointer-9" src="">
+              <img style="position:absolute; left:400px; top:280px; width:150px" id="task-11-pointer-box" src="">
+            </div>
+            <br>
+            <h5 id="task-11-attempt">Attempt #1</h5>
             <div class="form-group">
               <input type="submit" value="Next" class="btn btn-dark btn-block" id="next-btn-10">
             </div>

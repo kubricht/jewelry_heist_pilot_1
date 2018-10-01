@@ -1,7 +1,102 @@
 // Initialize card number Var
 var cardNum = 1;
 // Initialize start Vars for animation
-var startInstr2, startInstr3, startInstr4, startInstr5, startInstr6, startInstr7, startInstr8, startInstr9 = null;
+var startInstr2, startInstr3, startInstr4, startInstr5, startInstr6, startInstr7, startInstr8, startInstr9, startTask11 = null;
+
+// Let's declare a state matrix which tells us how to display elements
+var stateMatrix = [
+  ['VI',0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,2,1,0,0,0,1,0,0,0,3,1,0,0,0,1,0,0,0],
+  ['VI',0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,3,1,0,0,0,1,0,0,0,2,1,0,0,0,1,0,0,0],
+  ['V',0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,1,0,3,1,0,1,0,1,0,1,0,2,1,0,1,0,1,0,1,0],
+  ['II',0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,1,0,3,1,0,1,0,1,0,1,1,4,1,0,1,1,1,0,1,1],
+  ['V',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,2,1,1,0,0,1,1,0,0,3,1,1,0,0,1,1,0,0],
+  ['II',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,2,1,1,0,0,1,1,0,1,4,1,1,0,1,1,1,0,1],
+  ['IV',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,2,1,1,0,0,1,1,1,0,3,1,1,1,0,1,1,1,0],
+  ['III',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,2,1,1,0,0,1,1,1,0,3,1,1,1,0,1,1,1,1],
+  ['I',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,2,1,1,0,0,1,1,1,1,4,1,1,0,1,1,1,1,1],
+  ['IV',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,3,1,0,1,0,1,1,1,0,2,1,1,1,0,1,1,1,0],
+  ['III',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,3,1,0,1,0,1,1,1,0,2,1,1,1,0,1,1,1,1],
+  ['I',0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,3,1,0,1,0,1,1,1,1,4,1,0,1,1,1,1,1,1]
+];
+console.log(stateMatrix);
+// Assign probability to each outcome type (I, II, etc.)
+// These are the Common Cause probabilities from flow chart
+var phi = 0.8; // This is the chance elements successfully unlock
+// Outcome proability goes into this array
+var outcomeProbs = [];
+// We will expand the state matrix into this array
+var stateMatrixNew = [];
+for (var i=0;i<=11;i++) {
+  if (stateMatrix[i][0] == 'I') {
+    outcomeProbs[0] = Math.round(100*(Math.pow(phi,3)/2));
+    for (var j=0;j<outcomeProbs[0];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  } else if (stateMatrix[i][0] == 'II') {
+    outcomeProbs[1] = Math.round(100*(2*Math.pow(phi,2)*(1-phi))/2);
+    for (var j=0;j<outcomeProbs[1];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  } else if (stateMatrix[i][0] == 'III') {
+    outcomeProbs[2] = Math.round(100*(Math.pow(phi,3)*(1-phi))/2);
+    for (var j=0;j<outcomeProbs[2];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  } else if (stateMatrix[i][0] == 'IV') {
+    outcomeProbs[3] = Math.round(100*(Math.pow(phi,2)*Math.pow((1-phi),2))/2);
+    for (var j=0;j<outcomeProbs[3];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  } else if (stateMatrix[i][0] == 'V') {
+    outcomeProbs[4] = Math.round(100*(2*phi*Math.pow(1-phi,2))/2);
+    for (var j=0;j<outcomeProbs[4];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  } else if (stateMatrix[i][0] == 'VI') {
+    outcomeProbs[5] = Math.round(100*(Math.pow(1-phi,2))/2);
+    for (var j=0;j<outcomeProbs[5];j++) {
+      stateVec = Array(35)
+      for (var k=0;k<=35;k++){
+        stateVec[k] = stateMatrix[i][k];
+      }
+      stateMatrixNew.push(stateVec);
+    }
+  }
+}
+stateMatrix = stateMatrixNew
+// Next, shuffle the rows of the matrix
+var trialNums = [];
+for (i=0;i<stateMatrix.length;i++) {
+  trialNums.push(i);
+}
+// We will put shuffled trial numbers into this array
+var trialNumsNew = [];
+for (i=0;i<stateMatrix.length;i++) {
+  trialNumsNew.push(getRandomFromBucket(trialNums));
+}
+trialNums = trialNumsNew;
+// Need to declare an attempt number to cycle through state sequences
+var attemptNum = 0; // This needs to be declared outside of a function
 
 // Hide each card except for initial card
 hideCards();
@@ -86,6 +181,32 @@ function addBtnEvents(){
     document.getElementById('instructions-10').style.display = 'block';
     cardNum += 1;
   })
+  // Listen for Page 10 submit
+  document.getElementById('next-btn-10').addEventListener('click', function(){
+    document.getElementById('instructions-10').style.display = 'none';
+    document.getElementById('task-11').style.display = 'block';
+    cardNum += 1;
+    // Determine the position of each button (9 possible positions)
+    var bucket = [];
+    for (var i=0;i<=8;i++) {
+      bucket.push(i);
+    }
+    // Pick a random number between 0 and 8 (3 times)
+    // Use these values to place buttons in random positions
+    elementPositions = []
+    for (var i=0;i<=2;i++) {
+      elementPositions.push(getRandomFromBucket(bucket));
+    }
+    elementPositions.push(9); // Add 9 to account for box position
+    // Show action sequences for each possible attempt
+    window.requestAnimationFrame(stepTask11);
+  })
+}
+
+// Add function to get randomized button positions
+function getRandomFromBucket(bucket) {
+   var randomIndex = Math.floor(Math.random()*bucket.length);
+   return bucket.splice(randomIndex, 1)[0];
 }
 
 /*
@@ -640,4 +761,268 @@ function stepInstr9(timestamp){
     startInstr9 = timestamp;
   }
   window.requestAnimationFrame(stepInstr9);
+}
+// Step function (Task 11)
+function stepTask11(timestamp){
+  if (!startTask11 && cardNum === 11) {
+    console.log(attemptNum)
+    // We will change the displayed attempt number here
+    document.getElementById('task-11-attempt').innerHTML = "ATTEMPT #" + (attemptNum+1).toString();
+    // Declare IDs for button and pointer elements
+    buttonIds = ['task-11-btn-1', 'task-11-btn-2', 'task-11-btn-3', 'task-11-btn-4', 'task-11-btn-5', 'task-11-btn-6', 'task-11-btn-7', 'task-11-btn-8', 'task-11-btn-9']
+    pointerIds = ['task-11-pointer-1', 'task-11-pointer-2', 'task-11-pointer-3', 'task-11-pointer-4', 'task-11-pointer-5', 'task-11-pointer-6', 'task-11-pointer-7', 'task-11-pointer-8', 'task-11-pointer-9', 'task-11-pointer-box'];
+    // Hide all button and pointer elements
+    for (var i=0;i<=8;i++) {
+      document.getElementById(buttonIds[i]).src = "";
+    }
+    for (var i=0;i<=9;i++) {
+      document.getElementById(pointerIds[i]).src = "";
+    }
+    // Initially display locked box image
+    document.getElementById('task-11-box').src = "img/box_locked.png";
+    // Display the system's initial state based on randomly sampled element positions
+    document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+    document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+    document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+    // Run through state sequence
+    setTimeout(function(){
+      // Add Action 1 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[0]][9]-1]]).src = "img/pointer_a1.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][10] == 1 && stateMatrix[trialNums[0]][14] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][10] == 0 && stateMatrix[trialNums[0]][14] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][10] == 0 && stateMatrix[trialNums[0]][14] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][11] == 1 && stateMatrix[trialNums[0]][15] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][11] == 0 && stateMatrix[trialNums[0]][15] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][11] == 0 && stateMatrix[trialNums[0]][15] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][12] == 1 && stateMatrix[trialNums[0]][16] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][12] == 0 && stateMatrix[trialNums[0]][16] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][12] == 0 && stateMatrix[trialNums[0]][16] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+    }, 1000);
+    setTimeout(function(){
+      // Remove Action 1 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[0]][9]-1]]).src = "";
+      // Add Action 2 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[0]][18]-1]]).src = "img/pointer_a2.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][19] == 1 && stateMatrix[trialNums[0]][23] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][19] == 0 && stateMatrix[trialNums[0]][23] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][19] == 0 && stateMatrix[trialNums[0]][23] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][20] == 1 && stateMatrix[trialNums[0]][24] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][20] == 0 && stateMatrix[trialNums[0]][24] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][20] == 0 && stateMatrix[trialNums[0]][24] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][21] == 1 && stateMatrix[trialNums[0]][25] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][21] == 0 && stateMatrix[trialNums[0]][25] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][21] == 0 && stateMatrix[trialNums[0]][25] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+      // Change box's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][22] == 1 && stateMatrix[trialNums[0]][26] == 1) {
+        document.getElementById('task-11-box').src = "img/box_open.png";
+      } else if (stateMatrix[trialNums[0]][22] == 0 && stateMatrix[trialNums[0]][26] == 1) {
+        document.getElementById('task-11-box').src = "img/box_unlocked.png";
+      } else if (stateMatrix[trialNums[0]][22] == 0 && stateMatrix[trialNums[0]][26] == 0) {
+        document.getElementById('task-11-box').src = "img/box_locked.png";
+      }
+    }, 2000);
+    setTimeout(function(){
+      // Remove Action 2 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[0]][18]-1]]).src = "";
+      // Add Action 3 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[0]][27]-1]]).src = "img/pointer_a3.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][28] == 1 && stateMatrix[trialNums[0]][32] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][28] == 0 && stateMatrix[trialNums[0]][32] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][28] == 0 && stateMatrix[trialNums[0]][32] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][29] == 1 && stateMatrix[trialNums[0]][33] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][29] == 0 && stateMatrix[trialNums[0]][33] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][29] == 0 && stateMatrix[trialNums[0]][33] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][30] == 1 && stateMatrix[trialNums[0]][34] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[0]][30] == 0 && stateMatrix[trialNums[0]][34] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[0]][30] == 0 && stateMatrix[trialNums[0]][34] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+      // Change box's state according to stateMatrix
+      if (stateMatrix[trialNums[0]][31] == 1 && stateMatrix[trialNums[0]][35] == 1) {
+        document.getElementById('task-11-box').src = "img/box_open.png";
+      } else if (stateMatrix[trialNums[0]][31] == 0 && stateMatrix[trialNums[0]][35] == 1) {
+        document.getElementById('task-11-box').src = "img/box_unlocked.png";
+      } else if (stateMatrix[trialNums[0]][31] == 0 && stateMatrix[trialNums[0]][35] == 0) {
+        document.getElementById('task-11-box').src = "img/box_locked.png";
+      }
+
+
+
+    }, 3000)
+    startTask11 = timestamp;
+    attemptNum += 1;
+  }
+  var progress = timestamp - startTask11;
+  if (progress > 5000 && cardNum === 11) {
+    // We will change the displayed attempt number here
+    document.getElementById('task-11-attempt').innerHTML = "ATTEMPT #" + (attemptNum+1).toString();
+    // Declare IDs for button and pointer elements
+    buttonIds = ['task-11-btn-1', 'task-11-btn-2', 'task-11-btn-3', 'task-11-btn-4', 'task-11-btn-5', 'task-11-btn-6', 'task-11-btn-7', 'task-11-btn-8', 'task-11-btn-9']
+    pointerIds = ['task-11-pointer-1', 'task-11-pointer-2', 'task-11-pointer-3', 'task-11-pointer-4', 'task-11-pointer-5', 'task-11-pointer-6', 'task-11-pointer-7', 'task-11-pointer-8', 'task-11-pointer-9', 'task-11-pointer-box'];
+    // Hide all button and pointer elements
+    for (var i=0;i<=8;i++) {
+      document.getElementById(buttonIds[i]).src = "";
+    }
+    for (var i=0;i<=9;i++) {
+      document.getElementById(pointerIds[i]).src = "";
+    }
+    // Initially display locked box image
+    document.getElementById('task-11-box').src = "img/box_locked.png";
+    // Display the system's initial state based on randomly sampled element positions
+    document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+    document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+    document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+    // Run through state sequence
+    setTimeout(function(){
+      // Add Action 1 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[attemptNum]][9]-1]]).src = "img/pointer_a1.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][10] == 1 && stateMatrix[trialNums[attemptNum]][14] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][10] == 0 && stateMatrix[trialNums[attemptNum]][14] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][10] == 0 && stateMatrix[trialNums[attemptNum]][14] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][11] == 1 && stateMatrix[trialNums[attemptNum]][15] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][11] == 0 && stateMatrix[trialNums[attemptNum]][15] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][11] == 0 && stateMatrix[trialNums[attemptNum]][15] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][12] == 1 && stateMatrix[trialNums[attemptNum]][16] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][12] == 0 && stateMatrix[trialNums[attemptNum]][16] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][12] == 0 && stateMatrix[trialNums[attemptNum]][16] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+    }, 1000);
+    setTimeout(function(){
+      // Remove Action 1 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[attemptNum]][9]-1]]).src = "";
+      // Add Action 2 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[attemptNum]][18]-1]]).src = "img/pointer_a2.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][19] == 1 && stateMatrix[trialNums[attemptNum]][23] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][19] == 0 && stateMatrix[trialNums[attemptNum]][23] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][19] == 0 && stateMatrix[trialNums[attemptNum]][23] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][20] == 1 && stateMatrix[trialNums[attemptNum]][24] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][20] == 0 && stateMatrix[trialNums[attemptNum]][24] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][20] == 0 && stateMatrix[trialNums[attemptNum]][24] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][21] == 1 && stateMatrix[trialNums[attemptNum]][25] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][21] == 0 && stateMatrix[trialNums[attemptNum]][25] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][21] == 0 && stateMatrix[trialNums[attemptNum]][25] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+      // Change box's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][22] == 1 && stateMatrix[trialNums[attemptNum]][26] == 1) {
+        document.getElementById('task-11-box').src = "img/box_open.png";
+      } else if (stateMatrix[trialNums[attemptNum]][22] == 0 && stateMatrix[trialNums[attemptNum]][26] == 1) {
+        document.getElementById('task-11-box').src = "img/box_unlocked.png";
+      } else if (stateMatrix[trialNums[attemptNum]][22] == 0 && stateMatrix[trialNums[attemptNum]][26] == 0) {
+        document.getElementById('task-11-box').src = "img/box_locked.png";
+      }
+    }, 2000);
+    setTimeout(function(){
+      // Remove Action 2 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[attemptNum]][18]-1]]).src = "";
+      // Add Action 3 pointer
+      document.getElementById(pointerIds[elementPositions[stateMatrix[trialNums[attemptNum]][27]-1]]).src = "img/pointer_a3.png";
+      // Change first button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][28] == 1 && stateMatrix[trialNums[attemptNum]][32] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][28] == 0 && stateMatrix[trialNums[attemptNum]][32] == 1) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][28] == 0 && stateMatrix[trialNums[attemptNum]][32] == 0) {
+        document.getElementById(buttonIds[elementPositions[0]]).src = "img/btn_red_off.png";
+      }
+      // Change second button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][29] == 1 && stateMatrix[trialNums[attemptNum]][33] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][29] == 0 && stateMatrix[trialNums[attemptNum]][33] == 1) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][29] == 0 && stateMatrix[trialNums[attemptNum]][33] == 0) {
+        document.getElementById(buttonIds[elementPositions[1]]).src = "img/btn_red_off.png";
+      }
+      // Change third button's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][30] == 1 && stateMatrix[trialNums[attemptNum]][34] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_on.png";
+      } else if (stateMatrix[trialNums[attemptNum]][30] == 0 && stateMatrix[trialNums[attemptNum]][34] == 1) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_green_off.png";
+      } else if (stateMatrix[trialNums[attemptNum]][30] == 0 && stateMatrix[trialNums[attemptNum]][34] == 0) {
+        document.getElementById(buttonIds[elementPositions[2]]).src = "img/btn_red_off.png";
+      }
+      // Change box's state according to stateMatrix
+      if (stateMatrix[trialNums[attemptNum]][31] == 1 && stateMatrix[trialNums[attemptNum]][35] == 1) {
+        document.getElementById('task-11-box').src = "img/box_open.png";
+      } else if (stateMatrix[trialNums[attemptNum]][31] == 0 && stateMatrix[trialNums[attemptNum]][35] == 1) {
+        document.getElementById('task-11-box').src = "img/box_unlocked.png";
+      } else if (stateMatrix[trialNums[attemptNum]][31] == 0 && stateMatrix[trialNums[attemptNum]][35] == 0) {
+        document.getElementById('task-11-box').src = "img/box_locked.png";
+      }
+    }, 3000)
+    startTask11 = timestamp; 
+    attemptNum += 1;  
+  }
+  window.requestAnimationFrame(stepTask11);
+
 }
